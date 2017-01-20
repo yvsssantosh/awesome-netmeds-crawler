@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: bash -c "scrapy runspider main.py"
+    volumes:
+      - .:/myproj
+    ports:
+      - "5000:5000"
+      
