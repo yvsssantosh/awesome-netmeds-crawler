@@ -17,6 +17,7 @@ class MedicineTypes(base):
     medicine_name = Column(String,unique=True)
     medicine_variations = Column(String)
     medicine_variation_links = Column(String)
+    
     def __repr__(self):
          return "<MedicineTypes(medicine_name='%s',medicine_variations='%s', medicine_variation_links='%s')>" % (
              self.medicine_name, self.medicine_variations,self.medicine_variation_links)
@@ -117,4 +118,38 @@ class MedicineDetail(scrapy.Spider):
         method = getattr(med_type,method_name)
         method(response)
         
-# TODO : Modify the tables 
+
+class Medicines(base):
+    __tablename__ = 'medicines'
+    id = Column(Integer,primary_key=True)
+    medicine_name = Column(String,unique=True)
+    chemical_formula_id = Column(ForeignKey('chemical_compositions.id'))
+
+    def __repr__(self):
+        return "<Medicines(medicine_name='%s',chemical_formula_id='%s')>" % (
+            self.medicine_name,self.chemical_formula_id)
+class Medicine(scrapy.Spider):
+    pass
+
+class MedicineVariants(base):
+    __tablename__ = 'medicine_variants'
+    id = Column(Integer,primary_key=True)
+    variant_name = Column(String)
+    medicine_id = Column(ForeignKey('medicines.id'))
+
+    def __repr__(self):
+        return "<MedicineVariants(variant_name='%s',medicine_id='%s')>" % (self.chemical_formula_id)
+
+class MedicineVariant(scrapy.Spider):
+    pass
+
+class ChemicalCompositions(base):
+    __tablename__ = 'chemical_compositions'
+    id = Column(Integer,primary_key=True)
+    chemical_formula = Column(String,unique=True)
+
+    def __repr__(self):
+        return "<ChemicalCompositions(chemical_formula='%s')>" % (self.chemical_formula_id)
+class ChemicalComposition(scrapy.Spider):
+    pass
+
