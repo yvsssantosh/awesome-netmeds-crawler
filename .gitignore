@@ -1,3 +1,7 @@
 .vscode/
 __pycache__/
 *.pyc
+.idea/
+netmeds_files/
+netmeds.html
+file.html
